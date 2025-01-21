@@ -22,19 +22,19 @@ Automated Radiology Report Generation (ARRG) leverages machine learning to inter
 
 To get started with ISRA, follow the steps below:
 
-### Prerequisites
+## Prerequisites
 
 - Python 3.7 or later
 - Dependencies: `torch`, `numpy`, `matplotlib`, `scikit-learn`, `transformers`
 
-### Acknowledgments
+## Acknowledgments
 
 This work is supported by a grant from the **Natural Science Foundation of China (Grant No. 62072070)**.  <br><br>
 
 We would also like to express our gratitude to all the source code contributors, especially the authors of **R2GenCMN**, whose work inspired parts of this implementation.
 
 
-### Citation
+## Citation
 If you find this work helpful, please cite our paper:<br>
 ```bibtex
 
