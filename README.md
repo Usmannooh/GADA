@@ -1,6 +1,6 @@
-# ISRA - Integrating Symptoms Trend for Radiology Report Generation
+# ISRA - Integrated Symptoms Trend for Radiology Report Generation
 
-**ISRA** (Integrating Symptoms Trend for Radiology Report Generation) is a novel framework designed to address key challenges in Automated Radiology Report Generation (ARRG). It integrates **Symptoms Trend Knowledge Integration (STD-KI)** for temporal reasoning, advanced **multimodal fusion**, and **attention mechanisms** to generate accurate, interpretable, and contextually relevant diagnostic reports from medical images. 
+**ISRA** (Integrated Semantic Radiology Attention) is a novel framework designed to address key challenges in Automated Radiology Report Generation (ARRG). It integrates **Symptoms Trend Knowledge Integration (STD-KI)** for temporal reasoning, advanced **multimodal fusion**, and **attention mechanisms** to generate accurate, interpretable, and contextually relevant diagnostic reports from medical images. 
 
 
 ## Introduction
