@@ -1,6 +1,6 @@
-# ISRA - Integrated Symptoms Trend for Radiology Report Generation
+# GADA: A Graph-Based Dual Attention Model for Chest Temporal Disease Tracking and Radiology Report Generation
 
-**ISRA** (Integrated Semantic Radiology Attention) is a novel framework that addresses key challenges in Automated Radiology Report Generation (ARRG). It integrates **Symptoms-disease progression graph (SPG)** for temporal reasoning and advanced and **Dual-based attention mechanisms** to generate accurate, interpretable, and contextually relevant diagnostic reports from medical images. 
+ A Graph-Based Dual Attention Model for Chest Temporal Disease Tracking and Radiology Report Generation (GADA) is a novel framework that addresses key challenges in Automated Radiology Report Generation (ARRG). It integrates **Symptoms-disease progression graph (SPG)** for temporal reasoning and advanced and **Dual-based attention mechanisms** to generate accurate, interpretable, and contextually relevant diagnostic reports from medical images. 
 
 
 ## Introduction
