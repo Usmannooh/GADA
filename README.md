@@ -7,15 +7,15 @@
 
 Automated Radiology Report Generation (ARRG) leverages machine learning to interpret medical images and generate structured diagnostic reports. The **GADA** framework addresses three core challenges in ARRG:
 
-1. **Modeling Temporal Disease Progression**: ISRA dynamically captures **spatial** and **temporal relationships** in clinical data .
-2. **Multimodal Fusion**: Integrates **visual features** from medical images with **clinical context** from textual data using **Relational Graph Convolutional Networks (RGCNs)**.
-3. **Interpretability**: Enhances the explainability of the generated reports using advanced **DAM**, allowing clinicians to better trust and validate the AI's output.
+1. **Modeling Temporal Disease Progression**: ISRA dynamically captures spatial and temporal relationships in clinical data.
+2. **Multimodal Fusion**: Integrates visual features from medical images with clinical context from textual data using Relational Graph Convolutional Networks (RGCNs).
+3. **Interpretability**: Enhances the explainability of the generated reports using advanced DAM, allowing clinicians to trust better and validate the AI's output.
 
 ## Features
 
 - **Temporal Reasoning **: Models the progression of diseases over time based on serial imaging and clinical observations.
 - **Multimodal Fusion**: Combines visual and textual features for more comprehensive diagnostic reports.
-- **Advanced Attention Mechanisms**: Uses **Dynamic Graph Attention (DGA)** and **Key Event Attention (KEA)** to integrate clinical knowledge with visual patterns.
+- **Advanced Attention Mechanisms**: Dynamic Graph Attention (DGA) and Key Event Attention (KEA) integrate clinical knowledge with visual patterns.
 - **State-of-the-Art Performance**: Outperforms existing ARRG models with significant improvements in BLEU, METEOR, and ROUGE-L metrics.
   
 ## Installation
