@@ -53,13 +53,13 @@ GADA/
 ├── models/
 ├── modules/
 │   ├── dataloader/
-│   ├── modal/
+│   ├── model/
     ├── ..../
 │   ├── loss/
 │   ├── metrics/
 │   ├── tokenizer/
 │   └── utils/
-├── preprocess/
+├── results/
 ├── pycocoevalcap/
 ├── main_train.py
 ├── main_test.py
