@@ -65,10 +65,19 @@ GADA/
 ├── main_test.py
 └── README.md
 ```
-#  Train Model
-python train.py --dataset iu_xray --config configs/gada_config.yaml
-# Evaluate
-python evaluate.py --dataset iu_xray --checkpoint checkpoints/gada_best.pth
+## Train
+
+Run `bash train_iu_xray.sh` to train a model on the IU X-Ray data.
+
+Run `bash train_mimic_cxr.sh` to train a model on the MIMIC-CXR data.
+
+## Test
+
+Run `bash test_iu_xray.sh` to test a model on the IU X-Ray data.
+
+Run `bash test_mimic_cxr.sh` to test a model on the MIMIC-CXR data.
+
+
 # Results
 | Model    | BLEU-4    | METEOR    | ROUGE-L   | CIDEr     |
 | -------- | --------- | --------- | --------- | --------- |
