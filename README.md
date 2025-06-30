@@ -1,40 +1,51 @@
 # GADA: A Graph-Based Dual Attention Model for Chest Temporal Disease Tracking and Radiology Report Generation
 
- A Graph-Based Dual Attention Model for Chest Temporal Disease Tracking and Radiology Report Generation (GADA) is a novel framework that addresses key challenges in Automated Radiology Report Generation (ARRG). It integrates **Symptoms-disease progression graph (SPG)** for temporal reasoning and advanced and **Dual-based attention mechanisms** to generate accurate, interpretable, and contextually relevant diagnostic reports from medical images. 
+**GADA** is a novel deep learning framework designed to enhance Automated Radiology Report Generation (ARRG) from chest X-rays. It introduces a **Symptoms-Disease Progression Graph (SPG)** to model temporal clinical knowledge, and a **Graph-based Dual Attention Mechanism (GDAM)** to align evolving disease features with visual regions of interest.
+
+---
+
+#  Important Notice
+
+ This code is **directly associated with our manuscript submitted to the _The Visual Computer_ journal**.  
+If you use this repository in your research, **please cite the corresponding paper** (see citation section below).  
+We encourage transparency and reproducibility in medical AI. This repository provides **full implementation**, **setup instructions**, and **evaluation tools** to replicate our results.
+
+---
+
+#  Key Features
+
+- **Time-aware Clinical Graph (SPG)**: Models disease progression through forward/backward temporal edges.
+- **Graph-based Dual Attention (GDAM)**: Integrates visual and clinical cues using DGA (Dynamic Graph Attention) and KEA (Key Event Attention).
+- **Hybrid Positional Encoding (HTPE)**: Enhances long-sequence textual decoding.
+- **End-to-End Trainable**: Optimized for IU-Xray and MIMIC-CXR datasets.
+- **Reproducible & Interpretable**: Designed with clarity, ablation, and modularity in mind.
+
+---
+
+#  Dependencies and Environment
+
+Ensure you have the following installed:
+
+- Python ≥ 3.7  
+- PyTorch ≥ 1.7  
+- `transformers`, `numpy`, `matplotlib`, `scikit-learn`, `opencv-python`
+
+You can install dependencies with:
+
+```bash
+pip install -r requirements.txt
 
 
-## Introduction
 
-Automated Radiology Report Generation (ARRG) leverages machine learning to interpret medical images and generate structured diagnostic reports. The **GADA** framework addresses three core challenges in ARRG:
 
-1. **Modeling Temporal Disease Progression**: ISRA dynamically captures spatial and temporal relationships in clinical data.
-2. **Multimodal Fusion**: Integrates visual features from medical images with clinical context from textual data using Relational Graph Convolutional Networks (RGCNs).
-3. **Interpretability**: Enhances the explainability of the generated reports using advanced DAM, allowing clinicians to trust better and validate the AI's output.
-
-## Features
-
-- **Temporal Reasoning **: Models the progression of diseases over time based on serial imaging and clinical observations.
-- **Multimodal Fusion**: Combines visual and textual features for more comprehensive diagnostic reports.
-- **Advanced Attention Mechanisms**: Dynamic Graph Attention (DGA) and Key Event Attention (KEA) integrate clinical knowledge with visual patterns.
-- **State-of-the-Art Performance**: Outperforms existing ARRG models with significant improvements in BLEU, METEOR, and ROUGE-L metrics.
-  
-## Installation
-
-To get started with ISRA, follow the steps below:
-
-## Prerequisites
-
-- Python 3.7 or later
-- Dependencies: `torch`, `numpy`, `matplotlib`, `scikit-learn`, `transformers`
-
-## Acknowledgments
+# Acknowledgments
 
 This work is supported by a grant from the **Natural Science Foundation of China (Grant No. 62072070)**.  <br><br>
 
 We would also like to express our gratitude to all the source code contributors, especially the authors of **R2GenCMN**, whose work inspired parts of this implementation.
 
 
-## Citation
+# Citation
 If you find this work helpful, please cite our paper:<br>
 ```bibtex
 
