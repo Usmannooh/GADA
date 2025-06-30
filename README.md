@@ -34,7 +34,7 @@ You can install dependencies with:
 
 ```bash
 pip install -r requirements.txt
-
+```
  ##  Dataset
 
 Download the following datasets and place them under the `data/` directory:
@@ -53,7 +53,8 @@ GADA/
 ├── models/
 ├── modules/
 │   ├── dataloader/
-│   ├── layers/
+│   ├── modal/
+    ├── ..../
 │   ├── loss/
 │   ├── metrics/
 │   ├── tokenizer/
@@ -72,17 +73,22 @@ python evaluate.py --dataset iu_xray --checkpoint checkpoints/gada_best.pth
 | Model    | BLEU-4    | METEOR    | ROUGE-L   | CIDEr     |
 | -------- | --------- | --------- | --------- | --------- |
 | **IU-Xray** | **0.191** | **0.207** | **0.401** | **0.371** |
-|| -------- | --------- | --------- | --------- | --------- |
 | **MIMIC** | **0.118** | **0.158** | **0.293** | **0.230** |
 
 (Refer to the paper for full comparison)
+#  Configuration
 
+Edit configuration files inside the `maintrain/` directory to set:
+
+* Dataset paths
+* Training hyperparameters
+* Model saving/loading options
 
 # Acknowledgments
 
 This work is supported by a grant from the **Natural Science Foundation of China (Grant No. 62072070)**.  <br><br>
 
-We would also like to express our gratitude to all the source code contributors, especially the authors of **R2GenCMN**, whose work inspired parts of this implementation.
+We would also like to express our gratitude to all the source code contributors, especially the authors of **R2Gen**, whose work inspired parts of this implementation.
 
 
 # Citation
