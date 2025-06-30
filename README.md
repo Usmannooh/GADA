@@ -2,7 +2,7 @@
 
 **GADA** is a novel deep learning framework designed to enhance Automated Radiology Report Generation (ARRG) from chest X-rays. It introduces a **Symptoms-Disease Progression Graph (SPG)** to model temporal clinical knowledge, and a **Graph-based Dual Attention Mechanism (GDAM)** to align evolving disease features with visual regions of interest.
 
----
+
 
 #  Important Notice
 
@@ -10,7 +10,7 @@
 If you use this repository in your research, **please cite the corresponding paper** (see citation section below).  
 We encourage transparency and reproducibility in medical AI. This repository provides **full implementation**, **setup instructions**, and **evaluation tools** to replicate our results.
 
----
+
 
 #  Key Features
 
@@ -20,7 +20,7 @@ We encourage transparency and reproducibility in medical AI. This repository pro
 - **End-to-End Trainable**: Optimized for IU-Xray and MIMIC-CXR datasets.
 - **Reproducible & Interpretable**: Designed with clarity, ablation, and modularity in mind.
 
----
+
 
 #  Dependencies and Environment
 
@@ -35,7 +35,47 @@ You can install dependencies with:
 ```bash
 pip install -r requirements.txt
 
+ ##  Dataset
 
+Download the following datasets and place them under the `data/` directory:
+
+* [IU X-Ray Dataset](https://iuhealth.org/find-medical-services/x-rays)
+* [MIMIC-CXR Dataset](https://physionet.org/content/mimic-cxr-jpg/2.0.0/)
+
+Expected directory structure:
+
+```
+GADA/
+├── config/
+├── data/
+│   ├── iu_xray/
+│   └── mimic_cxr/
+├── models/
+├── modules/
+│   ├── dataloader/
+│   ├── layers/
+│   ├── loss/
+│   ├── metrics/
+│   ├── tokenizer/
+│   └── utils/
+├── preprocess/
+├── pycocoevalcap/
+├── main_train.py
+├── main_test.py
+└── README.md
+```
+#  Train Model
+python train.py --dataset iu_xray --config configs/gada_config.yaml
+# Evaluate
+python evaluate.py --dataset iu_xray --checkpoint checkpoints/gada_best.pth
+# Results
+| Model    | BLEU-4    | METEOR    | ROUGE-L   | CIDEr     |
+| -------- | --------- | --------- | --------- | --------- |
+| **IU-Xray** | **0.191** | **0.207** | **0.401** | **0.371** |
+|| -------- | --------- | --------- | --------- | --------- |
+| **MIMIC** | **0.118** | **0.158** | **0.293** | **0.230** |
+
+(Refer to the paper for full comparison)
 
 
 # Acknowledgments
