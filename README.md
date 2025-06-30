@@ -122,6 +122,14 @@ We would also like to express our gratitude to all the source code contributors,
 # Citation
 If you find this work helpful, please cite our paper:<br>
 ```bibtex
+@article{usman2025gada,
+  title={GADA: Enhancing Radiology Report Generation with Graph-based Dual Attention and Temporal Disease Progression Modeling},
+  author={Usman M, et al.},
+  journal={The Visual Computer},
+  year={2025},
+  note={This code is part of the manuscript submitted to *The Visual Computer*.  
+If you use this work, please cite our paper.
+}
 
 
 ```
