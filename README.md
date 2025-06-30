@@ -26,7 +26,7 @@ We encourage transparency and reproducibility in medical AI. This repository pro
 
 Ensure you have the following installed:
 
-- Python ≥ 3.7  
+- Python ≥ 3.8  
 - PyTorch ≥ 1.7  
 - `transformers`, `numpy`, `matplotlib`, `scikit-learn`, `opencv-python`
 
@@ -37,22 +37,28 @@ pip install -r requirements.txt
 ```
 ##  Algorithm Modules Overview
 
-### Symptoms-Disease Progression Graph (SPG)
+### **Algorithm Documentation**  
 
-* Time-aware graph with nodes as symptoms/diseases
-* Bi-directional edges represent disease transitions over time
+#### **1. Symptoms-Disease Progression Graph (SPG)**  
+- **Function**: Models temporal clinical evolution  
+- **Structure**:  
+  - **Nodes**: Symptoms/diseases  
+  - **Edges**: Bidirectional (disease transitions across imaging studies)  
+  
 
-###  Graph-based Dual Attention Mechanism (GDAM)
+#### **2. Graph-based Dual Attention Mechanism (GDAM)**  
+- **Components**:  
+  - **DGA (Dynamic Graph Attention)**: Graph-conditioned self-attention  
+  - **KEA (Key Event Attention)**: Gates clinically critical symptoms  
+- **Purpose**: Focuses on anatomically evolving regions  
+- **Implementation**: `modules/model.py`  
 
-* Combines DGA (graph-enhanced self-attention) + KEA (key event gate)
-* Allows focus on evolving regions and symptoms
-* Implemented in `modules/model.py`
+#### **3. Hybrid Transformer Positional Encoding (HTPE)**  
+- **Design**:  
+  - Sinusoidal (fixed) + Learned (adaptive) positional vectors  
+- **Advantage**: Captures long-range dependencies in reports  
+- **Implementation**: `modules/model.py`  
 
-###  Hybrid Transformer Positional Encoding (HTPE)
-
-* Combines sinusoidal and learned positional vectors
-* Improves long report generation
-* Implemented in `modules/model.py`
 
  ##  Dataset
 
@@ -119,19 +125,20 @@ This work is supported by a grant from the **Natural Science Foundation of China
 We would also like to express our gratitude to all the source code contributors, especially the authors of **R2Gen**, whose work inspired parts of this implementation.
 
 
-# Citation
-If you find this work helpful, please cite our paper:<br>
-```bibtex
-@article{usman2025gada,
-  title={GADA: Enhancing Radiology Report Generation with Graph-based Dual Attention and Temporal Disease Progression Modeling},
-  author={Usman M, et al.},
-  journal={The Visual Computer},
-  year={2025},
- doi: 10.5281/zenodo.15770862
-  note={This code is part of the manuscript submitted to *The Visual Computer*.  
-If you use this work, please cite our paper.
-}
+## Citation 
+```
+If you use this code or findings, please cite:  
 
+@article{usman2025gada,  
+  title = {GADA: Enhancing Radiology Report Generation with Graph-Based Dual Attention and Temporal Disease Progression Modeling},  
+  author = {Usman, M. and [Coauthors]},  
+  journal = {The Visual Computer},  
+  year = {2025},  
+  doi = {10.5281/zenodo.15771095},  
+  note = {Code: \url{https://github.com/Usmannooh/GADA}}  
+}  
+
+*This repository accompanies the manuscript under review at [The Visual Computer].*  
 
 ```
 
