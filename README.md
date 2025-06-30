@@ -35,6 +35,25 @@ You can install dependencies with:
 ```bash
 pip install -r requirements.txt
 ```
+##  Algorithm Modules Overview
+
+### Symptoms-Disease Progression Graph (SPG)
+
+* Time-aware graph with nodes as symptoms/diseases
+* Bi-directional edges represent disease transitions over time
+
+###  Graph-based Dual Attention Mechanism (GDAM)
+
+* Combines DGA (graph-enhanced self-attention) + KEA (key event gate)
+* Allows focus on evolving regions and symptoms
+* Implemented in `modules/model.py`
+
+###  Hybrid Transformer Positional Encoding (HTPE)
+
+* Combines sinusoidal and learned positional vectors
+* Improves long report generation
+* Implemented in `modules/model.py`
+
  ##  Dataset
 
 Download the following datasets and place them under the `data/` directory:
