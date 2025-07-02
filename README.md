@@ -13,13 +13,12 @@ We encourage transparency and reproducibility in medical AI. This repository pro
 
 
 #  Key Features
-- **FEP**                 Extracts visual features from chest X-rays using ResNet-101 
+
 - **Time-aware Clinical Graph (SPG)**: Models disease progression through forward/backward temporal edges.
 - **Graph-based Dual Attention (GDAM)**: Integrates visual and clinical cues using DGA (Dynamic Graph Attention) and KEA (Key Event Attention).
 - **Hybrid Positional Encoding (HTPE)**: Enhances long-sequence textual decoding.
 - **End-to-End Trainable**: Optimized for IU-Xray and MIMIC-CXR datasets.
 - **Reproducible & Interpretable**: Designed with clarity, ablation, and modularity in mind.
-- **Transformer Decoder**  Generates clinically accurate and coherent radiology reports 
 
 
 
@@ -39,26 +38,27 @@ pip install -r requirements.txt
 ##  Algorithm Modules Overview
 
 ### **Algorithm Documentation**  
-
-#### **1. Symptoms-Disease Progression Graph (SPG)**  
+####- **1. FEP**                 Extracts visual features from chest X-rays using ResNet-101 
+#### **2. Symptoms-Disease Progression Graph (SPG)**  
 - **Function**: Models temporal clinical evolution  
 - **Structure**:  
   - **Nodes**: Symptoms/diseases  
   - **Edges**: Bidirectional (disease transitions across imaging studies)  
   
 
-#### **2. Graph-based Dual Attention Mechanism (GDAM)**  
+#### **3. Graph-based Dual Attention Mechanism (GDAM)**  
 - **Components**:  
   - **DGA (Dynamic Graph Attention)**: Graph-conditioned self-attention  
   - **KEA (Key Event Attention)**: Gates clinically critical symptoms  
 - **Purpose**: Focuses on anatomically evolving regions  
 - **Implementation**: `modules/model.py`  
 
-#### **3. Hybrid Transformer Positional Encoding (HTPE)**  
+#### **4. Hybrid Transformer Positional Encoding (HTPE)**  
 - **Design**:  
   - Sinusoidal (fixed) + Learned (adaptive) positional vectors  
 - **Advantage**: Captures long-range dependencies in reports  
 - **Implementation**: `modules/model.py`  
+- **Transformer Decoder**  Generates clinically accurate and coherent radiology reports 
 
 ## Pseudocode
 ```python
