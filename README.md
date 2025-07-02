@@ -38,7 +38,8 @@ pip install -r requirements.txt
 ##  Algorithm Modules Overview
 
 ### **Algorithm Documentation**  
-####- **1. FEP**                 Extracts visual features from chest X-rays using ResNet-101 
+
+#### **1. FEP**    Extracts visual features from chest X-rays using ResNet-101 
 #### **2. Symptoms-Disease Progression Graph (SPG)**  
 - **Function**: Models temporal clinical evolution  
 - **Structure**:  
