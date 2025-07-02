@@ -59,6 +59,50 @@ pip install -r requirements.txt
 - **Advantage**: Captures long-range dependencies in reports  
 - **Implementation**: `modules/model.py`  
 
+## Pseudocode
+```python
+# Input: Sequential Chest X-ray images I = {I1, I2, ..., In}
+# Output: Radiology Report Y
+
+# Step 1: Feature Extraction (FEP)
+for image in I:
+    visual_features = ResNet101(image)   # Extract deep features
+    I_features.append(visual_features)
+
+# Step 2: Build Symptom-Disease Progression Graph (SPG)
+SPG = create_graph(nodes=symptoms, edges=temporal_relationships)
+SPG_embeddings = RGCN(SPG)               # Learn initial graph embeddings
+
+# Step 3: Apply Graph-Based Dual Attention Mechanism (GDAM)
+
+# Dynamic Graph Attention (DGA) to refine graph node embeddings
+V_prime = SPG_embeddings
+V_double_prime = DGA(V_prime, visual_features, SPG.adjacency_matrix)
+
+# Key Event Attention (KEA) to focus on critical findings over time
+attention_output = KEA(visual_features, V_double_prime)
+
+# Fuse graph and visual information
+G_fused = FullyConnectedLayer(attention_output)
+
+# Step 4: Positional Encoding with HTPE
+G_encoded = HTPE(G_fused, sequence_length=L)
+
+# Step 5: Report Generation using Transformer Decoder
+Q, K, V = LinearProjection(G_encoded)
+encoder_output = TransformerEncoder(Q, K, V)
+
+# Decode the report sequence token by token
+Y = TransformerDecoder(encoder_output)
+
+# Step 6: Training Objective
+# Maximize conditional probability of generating report Y given input images and SPG
+loss = CrossEntropy(Y_pred, Y_true)
+optimize(loss)
+
+# Final Output: Generated Report Y
+return Y
+```
 
  ##  Dataset
 
