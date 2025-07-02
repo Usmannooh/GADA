@@ -1,6 +1,9 @@
 # GADA: A Graph-Based Dual Attention Model for Chest Temporal Disease Tracking and Radiology Report Generation
 
-**GADA** is a novel deep learning framework designed to enhance Automated Radiology Report Generation (ARRG) from chest X-rays. It introduces a **Symptoms-Disease Progression Graph (SPG)** to model temporal clinical knowledge, and a **Graph-based Dual Attention Mechanism (GDAM)** to align evolving disease features with visual regions of interest.
+This paper focuses on the task of automated radiology report generation (ARRG) from chest X-ray images. Accurate and interpretable ARRG is essential for enhancing diagnostic efficiency, reducing radiologist workload, and improving patient outcomes in clinical workflows. While recent methods leverage vision-language models and medical knowledge graphs, they predominantly rely on static relationships and lack the ability to model evolving disease progression over time, a critical factor in real-world radiological assessment. These limitations raise two fundamental challenges:
+(1) How can we effectively model temporal disease evolution across sequential imaging studies to improve the contextual accuracy of generated reports?  (2) How can we integrate structured clinical knowledge early in the generation pipeline to enhance interpretability and reduce reporting bias?  To address these challenges, we propose GADA, a novel graph-based dual-attention framework for radiology report generation. 
+
+**GADA** is a novel deep learning framework designed to enhance Automated Radiology Report Generation (ARRG) from chest X-rays. It introduces a Symptoms-Disease Progression Graph (SPG) to model temporal clinical knowledge, and a Graph-based Dual Attention Mechanism (GDAM) to align evolving disease features with visual regions of interest.
 
 
 
