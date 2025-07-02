@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 #### **1. FEP**    Extracts visual features from chest X-rays using ResNet-101 
 #### **2. Symptoms-Disease Progression Graph (SPG)**  
-- **Function**: Models temporal clinical evolution  
+- **Function**: Graph structure capturing temporal disease progression and co-occurrence 
 - **Structure**:  
   - **Nodes**: Symptoms/diseases  
   - **Edges**: Bidirectional (disease transitions across imaging studies)  
@@ -49,15 +49,15 @@ pip install -r requirements.txt
 
 #### **3. Graph-based Dual Attention Mechanism (GDAM)**  
 - **Components**:  
-  - **DGA (Dynamic Graph Attention)**: Graph-conditioned self-attention  
-  - **KEA (Key Event Attention)**: Gates clinically critical symptoms  
+  - **DGA (Dynamic Graph Attention)**: Refines SPG embeddings by dynamically updating them based on time-aware dependencies 
+  - **KEA (Key Event Attention)**: GaAttends to key clinical events using adaptive gating to highlight important findings  
 - **Purpose**: Focuses on anatomically evolving regions  
 - **Implementation**: `modules/model.py`  
 
 #### **4. Hybrid Transformer Positional Encoding (HTPE)**  
 - **Design**:  
   - Sinusoidal (fixed) + Learned (adaptive) positional vectors  
-- **Advantage**: Captures long-range dependencies in reports  
+- **Advantage**: Captures long-range dependencies and handles long diagnostic reports and contextual bias
 - **Implementation**: `modules/model.py`  
 - **Transformer Decoder**  Generates clinically accurate and coherent radiology reports 
 
