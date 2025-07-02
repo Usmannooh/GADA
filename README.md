@@ -13,12 +13,13 @@ We encourage transparency and reproducibility in medical AI. This repository pro
 
 
 #  Key Features
-
+- **FEP**                 Extracts visual features from chest X-rays using ResNet-101 
 - **Time-aware Clinical Graph (SPG)**: Models disease progression through forward/backward temporal edges.
 - **Graph-based Dual Attention (GDAM)**: Integrates visual and clinical cues using DGA (Dynamic Graph Attention) and KEA (Key Event Attention).
 - **Hybrid Positional Encoding (HTPE)**: Enhances long-sequence textual decoding.
 - **End-to-End Trainable**: Optimized for IU-Xray and MIMIC-CXR datasets.
 - **Reproducible & Interpretable**: Designed with clarity, ablation, and modularity in mind.
+- **Transformer Decoder**  Generates clinically accurate and coherent radiology reports 
 
 
 
