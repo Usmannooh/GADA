@@ -31,7 +31,7 @@ Ensure you have the following installed:
 
 - Python ≥ 3.8  
 - PyTorch ≥ 1.7  
-- `transformers`, `numpy`, `matplotlib`, `scikit-learn`, `opencv-python`
+- `transformers`, `numpy`, `matplotlib`, `scikit-learn`, `opencv-python ', ` tensorflow-gpu`, 'pandas', 'cudatoolkit=11.7', 'nltk'
 
 You can install dependencies with:
 
