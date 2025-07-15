@@ -9,7 +9,7 @@ This paper focuses on the task of automated radiology report generation (ARRG) f
 
 #  Important Notice
 
- This code is **directly associated with our manuscript submitted to the _IET Research Journals**.  
+ This code is **directly associated with our manuscript submitted to the _Wiley ExpertSystems**.  
 If you use this repository in your research, **please cite the corresponding paper** (see citation section below).  
 We encourage transparency and reproducibility in medical AI. This repository provides **full implementation**, **setup instructions**, and **evaluation tools** to replicate our results.
 
@@ -182,7 +182,7 @@ If you use this code or findings, please cite:
 @article{usman2025gada,  
   title = {GADA: Enhancing Radiology Report Generation with Graph-Based Dual Attention and Temporal Disease Progression Modeling},  
   author = {Usman, M. and [Coauthors]},  
-  journal = {IET Research Journals},  
+  journal = {},  
   year = {2025},  
   doi = {Submitted},  
   note = {Code: \url{https://github.com/Usmannooh/GADA}}  
