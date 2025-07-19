@@ -9,7 +9,7 @@ This paper focuses on the task of automated radiology report generation (ARRG) f
 
 #  Important Notice
 
- This code is **directly associated with our manuscript submitted to the _Wiley ExpertSystems**.  
+ This code is **directly associated with our manuscript submitted to the _Computer Methods and Programs in Biomedicine**.  
 If you use this repository in your research, **please cite the corresponding paper** (see citation section below).  
 We encourage transparency and reproducibility in medical AI. This repository provides **full implementation**, **setup instructions**, and **evaluation tools** to replicate our results.
 
