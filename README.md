@@ -42,12 +42,12 @@ pip install -r requirements.txt
 ```
 ##  Algorithm Modules Overview
 
-### **1. Feature Extraction Process (FEP)**
+ **1. Feature Extraction Process (FEP)**
 - **Function**: Extracts spatial visual features from multi-view chest X-rays using a pre-trained ResNet-101.
 - **Enhancement**: Applies Class-Specific Spatial Aggregation (CSSA) to focus on disease-relevant regions before fusion.
 
 
-### **2. Symptom–Disease Progression Graph (SPG-MKG)**
+ **2. Symptom–Disease Progression Graph (SPG-MKG)**
 - **Function**: Encodes prior medical knowledge and captures temporal disease evolution across patient visits.
 - **Structure**:
   - **Nodes**: Thoracic symptoms and diseases (e.g., opacity, effusion)
