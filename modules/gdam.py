@@ -43,7 +43,19 @@ class TemporalSaliencyGatedAttention(nn.Module): #temporal salience attention 3.
         context = (value * attn_weights.unsqueeze(2)).sum(dim=1)
         return context, attn_weights
 
+#CSSA
+class ClassSpecificSpatialAggregation(nn.Module):
+    def __init__(self, input_dim, num_classes):
+        super().__init__()
+        self.attention_map = nn.Conv2d(input_dim, num_classes, kernel_size=1)
 
+    def forward(self, features, num_classes):
+        B, C, H, W = features.size()
+        attention_logits = self.attention_map(features)
+        attention_weights = torch.softmax(attention_logits.view(B, num_classes, -1), dim=2)
+        flattened = features.view(B, C, H * W).permute(0, 2, 1)
+        aggregated_features = torch.bmm(attention_weights, flattened)
+        return aggregated_features
       
         # input_dim = 64
         # num_classes = 10
