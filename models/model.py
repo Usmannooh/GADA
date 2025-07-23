@@ -6,7 +6,7 @@ import math
 from R2Gen.modules.visual_extractor import VisualExtractor
 from R2Gen.modules.base_cmn import BaseCMN
 from torch.nn import Parameter
-from R2Gen.modules.model import DynamicGraphAttension,KeyEventAttention
+from R2Gen.modules.gdam import DynamicGraphAttension,KeyEventAttention
 
 class RGCN(nn.Module):
     def __init__(self, input_dim, output_dim, gcn_layers=3, activation=nn.GELU()):
