@@ -40,13 +40,12 @@ You can install dependencies with:
 ```bash
 pip install -r requirements.txt
 ```
-## 🔧 Algorithm Modules Overview
+##  Algorithm Modules Overview
 
 ### **1. Feature Extraction Process (FEP)**
 - **Function**: Extracts spatial visual features from multi-view chest X-rays using a pre-trained ResNet-101.
 - **Enhancement**: Applies Class-Specific Spatial Aggregation (CSSA) to focus on disease-relevant regions before fusion.
 
----
 
 ### **2. Symptom–Disease Progression Graph (SPG-MKG)**
 - **Function**: Encodes prior medical knowledge and captures temporal disease evolution across patient visits.
@@ -55,7 +54,7 @@ pip install -r requirements.txt
   - **Edges**: Bidirectional temporal relations (forward and backward adjacency)
 - **Personalization**: Activated dynamically using visual-symptom alignment and inter-visit similarity.
 
----
+
 
 ### **3. Graph Reasoning and Dual Attention Module**
 - **Components**:
@@ -65,14 +64,14 @@ pip install -r requirements.txt
 - **Purpose**: Models evolving clinical semantics and spatial-temporal alignment.
 - **Implementation**: `modules/attention.py`, `modules/graph.py`
 
----
+
 
 ### **4. Context-Guided Temporal Positional Encoding (CTPE)**
 - **Design**: Combines sinusoidal encodings with visit-aware temporal masking (`pt`) and report-aware contextual cues (`rt`).
 - **Function**: Injects chronological coherence into Transformer input representations.
 - **Implementation**: `modules/position.py`
 
----
+
 
 ### **5. Report Generation via Hybrid Transformer**
 - **Design**: Multi-layer Transformer encoder-decoder conditioned on fused clinical and visual embeddings.
