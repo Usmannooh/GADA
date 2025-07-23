@@ -6,36 +6,28 @@ import math
 from R2Gen.modules.visual_extractor import VisualExtractor
 from R2Gen.modules.base_cmn import BaseCMN
 from torch.nn import Parameter
-from R2Gen.modules.gdam import DynamicGraphAttension,KeyEventAttention
-
-class RGCN(nn.Module):
+from R2Gen.modules.gdam import ContextAwareDynamicAlignment,TemporalSaliencyGatedAttention
+#BiRGR
+class BiDirectionalRelationalGraphReasoner(nn.Module):
     def __init__(self, input_dim, output_dim, gcn_layers=3, activation=nn.GELU()):
-        super(RGCN, self).__init__()
-
-        if gcn_layers is not None:
-            self.gcn_layers = nn.ModuleList()
-            self.gcn_layers.append(GraphConvolution(input_dim, output_dim))
-            for _ in range(1, gcn_layers):
-                self.gcn_layers.append(GraphConvolution(output_dim, output_dim))
-        else:
-            self.gcn_layers = None
+        super().__init__()
+        self.gcn_layers = nn.ModuleList()
         self.activation = activation
+        self.gcn_layers.append(GraphConvolution(input_dim, output_dim))
+        for _ in range(1, gcn_layers):
+            self.gcn_layers.append(GraphConvolution(output_dim, output_dim))
 
-    def forward(self, states, forward_adj, backward_adj):
-
+    def forward(self, node_states, forward_adj, backward_adj):
         if forward_adj is None or backward_adj is None:
             raise ValueError("Both forward and backward adjacency matrices must be provided.")
 
-        if self.gcn_layers is not None:
-            states = states.permute(0, 2, 1)
-            for i, layer in enumerate(self.gcn_layers):
-                forward_states = self.activation(layer(states, forward_adj))
-                backward_states = self.activation(layer(states, backward_adj))
-                states = (forward_states + backward_states) / 2
-            states = states.permute(0, 2, 1)
-
-
-        return states
+        node_states = node_states.permute(0, 2, 1)
+        for layer in self.gcn_layers:
+            fwd = self.activation(layer(node_states, forward_adj))
+            bwd = self.activation(layer(node_states, backward_adj))
+            node_states = (fwd + bwd) / 2
+        node_states = node_states.permute(0, 2, 1)
+        return node_states
 
 class GraphConvolution(nn.Module):
     def __init__(self, in_features, out_features, use_bias=True):
@@ -74,22 +66,23 @@ class GraphConvolution(nn.Module):
 
 
 
-class HybridTransformerPositionalEncoding(nn.Module):
+#Context-Guided Temporal Positional Encoding (CTPE)
+
+class ContextGuidedTemporalPositionalEncoding(nn.Module):
     def __init__(self, d_model, max_len=5000):
-        super(HybridTransformerPositionalEncoding, self).__init__()
+        super().__init__()
         pe = torch.zeros(max_len, d_model)
         position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
         div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
-        pe = pe.unsqueeze(0).transpose(0, 1)
-        self.register_buffer('pe', pe)
+        self.pe = pe.unsqueeze(0).transpose(0, 1)  # [max_len, 1, d_model]
+        self.register_buffer("pe", self.pe)
 
     def forward(self, x, lengths):
-        mask = torch.arange(x.size(1))[None, :] < lengths[:, None]
+        mask = torch.arange(x.size(1), device=x.device)[None, :] < lengths[:, None]
         x = x + self.pe[:x.size(0), :] * mask.unsqueeze(-1)
         return x
-
 class Sman(nn.Module):
     def __init__(self, args, tokenizer, num_classes, forward_adj, backward_adj, feature_dim=2048, embed_size=256,
                  hidden_size=612):
@@ -105,9 +98,9 @@ class Sman(nn.Module):
         self.backward_adj = backward_adj
         self.visual_extractor = VisualExtractor(args)
         self.encoder_decoder = BaseCMN(args, tokenizer)
-        self.graph_cn = RGCN(feature_dim, feature_dim )
-        self.attention = DynamicGraphAttension(hidden_size, feature_dim)
-        self.key_event_attention = KeyEventAttention(key_dim=hidden_size, value_dim=feature_dim)
+        self.birger = BiDirectionalRelationalGraphReasoner(feature_dim, feature_dim )
+        self.cada = ContextAwareDynamicAlignment(hidden_size, feature_dim)
+        self.tsa = TemporalSaliencyGatedAttention(key_dim=hidden_size, value_dim=feature_dim)
 
 
 
@@ -135,9 +128,9 @@ class Sman(nn.Module):
         context_features, alpha = self.attention(enc_features, img_features)
         context_features = context_features.view(batch_size, self.feature_dim, 1, 1)
         visual_features = self.visual_extractor(img_features)
-        visual_features = self.graph_cn(visual_features, forward_adj=self.normalized_forward_adj,
+        visual_features = self.birgr(visual_features, forward_adj=self.normalized_forward_adj,
                                         backward_adj=self.normalized_backward_adj)
-        visual_features = self.class_attention(visual_features)
+        visual_features = self.cada(visual_features)
 
         # Flatten visual features for captioning
         flattened_visual = visual_features.view(batch_size, -1)
@@ -159,7 +152,7 @@ class Sman(nn.Module):
         forward_adj = self.normalized_forward_adj.repeat(6, 1, 1)
         backward_adj = self.normalized_backward_adj.repeat(6, 1, 1)
         global_features = [feat.mean(dim=(2, 3)) for feat in att_features]
-        att_features = [self.class_attention(feat, self.num_classes) for feat in att_features]
+        att_features = [self.cada(feat, self.num_classes) for feat in att_features]
 
         for idx in range(2):
             att_features[idx] = torch.cat((global_features[idx].unsqueeze(1), att_features[idx]), dim=1)
