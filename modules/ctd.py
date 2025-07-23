@@ -45,42 +45,7 @@ class KeyEventAttention(nn.Module):
 
         return context, attention_weights
 
-class HybridTransformerPositionalEncoding(nn.Module):
-    def __init__(self, d_model, max_len=5000):
-        super(HybridTransformerPositionalEncoding, self).__init__()
-        pe = torch.zeros(max_len, d_model)
-        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
-        pe[:, 0::2] = torch.sin(position * div_term)
-        pe[:, 1::2] = torch.cos(position * div_term)
-        pe = pe.unsqueeze(0).transpose(0, 1)
-        self.register_buffer('pe', pe)
 
-    def forward(self, x, lengths):
-        mask = torch.arange(x.size(1))[None, :] < lengths[:, None]
-        x = x + self.pe[:x.size(0), :] * mask.unsqueeze(-1)
-        return x
-
-class IUXrayAttentionModule(nn.Module):
-    def __init__(self, input_dim, num_classes, key_dim, value_dim):
-        super(IUXrayAttentionModule, self).__init__()
-        self. DynamicGraphAttension =  DynamicGraphAttension(key_dim, value_dim)
-        self.key_event_attention = KeyEventAttention(key_dim, value_dim)
-
-    def forward(self, iu_xray_identifiers, feature_maps, key_tensor, value_tensor):
-        results = {}
-        for identifier in iu_xray_identifiers:
-            class_wise_features = self.class_attention(feature_maps)
-            attention_context, attention_weights = self.contextual_attention(key_tensor, value_tensor)
-            context, weights = self.key_event_attention(key_tensor, value_tensor)
-
-            results[identifier] = {
-                "class_wise_features": class_wise_features,
-                " DynamicGraphAttension_weights": attention_weights,
-                "key_event_attention_context": context,
-                "key_event_attention_weights": weights
-            }
-        return results
 
       
         # input_dim = 64
