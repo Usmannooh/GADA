@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torchvision.models as models
+from modules.gdam import ClassSpecificSpatialAggregation
 
 
 class VisualExtractor(nn.Module):
@@ -8,6 +9,9 @@ class VisualExtractor(nn.Module):
         super(VisualExtractor, self).__init__()
         self.visual_extractor = args.visual_extractor
         self.pretrained = args.visual_extractor_pretrained
+        self.cssa = ClassSpecificSpatialAggregation(input_dim=2048, num_classes=K)
+        raw_feats = cnn_backbone(x)  # shape: (B, 2048, H, W)        
+        agg_feats = cssa(raw_feats, K)  # (B, K, 2048)
         model = getattr(models, self.visual_extractor)(pretrained=self.pretrained)
         modules = list(model.children())[:-2]
         self.model = nn.Sequential(*modules)
@@ -17,6 +21,7 @@ class VisualExtractor(nn.Module):
         patch_feats = self.model(images)
         avg_feats = self.avg_fnt(patch_feats).squeeze().reshape(-1, patch_feats.size(1))
         batch_size, feat_size, _, _ = patch_feats.shape
+        sim_matrix = cosine_similarity(agg_feats.mean(dim=1), 0.6)
         #patch_feats = patch_feats.reshape(batch_size, feat_size, -1).permute(0, 2, 1)
         return patch_feats, avg_feats
 
