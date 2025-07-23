@@ -15,13 +15,15 @@ We encourage transparency and reproducibility in medical AI. This repository pro
 
 
 
-#  Key Features
+# Key Features
 
-- **Time-aware Clinical Graph (SPG)**: Models disease progression through forward/backward temporal edges.
-- **Graph-based Dual Attention (GDAM)**: Integrates visual and clinical cues using DGA (Dynamic Graph Attention) and KEA (Key Event Attention).
-- **Hybrid Positional Encoding (HTPE)**: Enhances long-sequence textual decoding.
-- **End-to-End Trainable**: Optimized for IU-Xray and MIMIC-CXR datasets.
-- **Reproducible & Interpretable**: Designed with clarity, ablation, and modularity in mind.
+- **Symptom–Disease Progression Graph (SPG-MKG):** Captures temporal disease dynamics using forward/backward edges in a clinically grounded knowledge graph.
+- **Bidirectional Graph Reasoning (BiRGR):** Learns contextual representations over symptom–disease relationships using stacked graph convolutions.
+- **Class-Specific Spatial Aggregation (CSSA):** Enhances visual localization by aggregating CNN features per disease class.
+- **Context-Aware Dual Attention (CADA + TSA):** Aligns visual and clinical cues via semantic-aware (CADA) and saliency-driven (TSA) mechanisms.
+- **Context-Guided Temporal Positional Encoding (CTPE):** Maintains temporal consistency across multi-visit image sequences.
+- **End-to-End Trainable & Interpretable:** Modular, reproducible design validated on IU-Xray and MIMIC-CXR with strong clinical coherence and ablation support.
+
 
 
 
@@ -38,77 +40,46 @@ You can install dependencies with:
 ```bash
 pip install -r requirements.txt
 ```
-##  Algorithm Modules Overview
+## 🔧 Algorithm Modules Overview
 
-### **Algorithm Documentation**  
+### **1. Feature Extraction Process (FEP)**
+- **Function**: Extracts spatial visual features from multi-view chest X-rays using a pre-trained ResNet-101.
+- **Enhancement**: Applies Class-Specific Spatial Aggregation (CSSA) to focus on disease-relevant regions before fusion.
 
-#### **1. FEP** 
-- **Function**: Extracts visual features from chest X-rays using ResNet-101 
-#### **2. Symptoms-Disease Progression Graph (SPG)**  
-- **Function**: Graph structure capturing temporal disease progression and co-occurrence 
-- **Structure**:  
-  - **Nodes**: Symptoms/diseases  
-  - **Edges**: Bidirectional (disease transitions across imaging studies)  
-  
+---
 
-#### **3. Graph-based Dual Attention Mechanism (GDAM)**  
-- **Components**:  
-  - **DGA (Dynamic Graph Attention)**: Refines SPG embeddings by dynamically updating them based on time-aware dependencies 
-  - **KEA (Key Event Attention)**: GaAttends to key clinical events using adaptive gating to highlight important findings  
-- **Purpose**: Focuses on anatomically evolving regions  
-- **Implementation**: `modules/model.py`  
+### **2. Symptom–Disease Progression Graph (SPG-MKG)**
+- **Function**: Encodes prior medical knowledge and captures temporal disease evolution across patient visits.
+- **Structure**:
+  - **Nodes**: Thoracic symptoms and diseases (e.g., opacity, effusion)
+  - **Edges**: Bidirectional temporal relations (forward and backward adjacency)
+- **Personalization**: Activated dynamically using visual-symptom alignment and inter-visit similarity.
 
-#### **4. Hybrid Transformer Positional Encoding (HTPE)**  
-- **Design**:  
-  - Sinusoidal (fixed) + Learned (adaptive) positional vectors  
-- **Advantage**: Captures long-range dependencies and handles long diagnostic reports and contextual bias
-- **Implementation**: `modules/model.py`  
-- **Transformer Decoder**  Generates clinically accurate and coherent radiology reports 
+---
 
-## Pseudocode
-```python
-# Input: Sequential Chest X-ray images I = {I1, I2, ..., In}
-# Output: Radiology Report Y
+### **3. Graph Reasoning and Dual Attention Module**
+- **Components**:
+  - **BiRGR (Bidirectional Relational Graph Reasoner)**: Performs context-aware reasoning over SPG using stacked GCN layers.
+  - **CADA (Context-Aware Dynamic Alignment)**: Aligns symptom-visual representations based on semantic cues.
+  - **TSA (Temporal Saliency Attention)**: Highlights key clinical events across temporal visit sequences.
+- **Purpose**: Models evolving clinical semantics and spatial-temporal alignment.
+- **Implementation**: `modules/attention.py`, `modules/graph.py`
 
-# Step 1: Feature Extraction (FEP)
-for image in I:
-    visual_features = ResNet101(image)   # Extract deep features
-    I_features.append(visual_features)
+---
 
-# Step 2: Build Symptom-Disease Progression Graph (SPG)
-SPG = create_graph(nodes=symptoms, edges=temporal_relationships)
-SPG_embeddings = RGCN(SPG)               # Learn initial graph embeddings
+### **4. Context-Guided Temporal Positional Encoding (CTPE)**
+- **Design**: Combines sinusoidal encodings with visit-aware temporal masking (`pt`) and report-aware contextual cues (`rt`).
+- **Function**: Injects chronological coherence into Transformer input representations.
+- **Implementation**: `modules/position.py`
 
-# Step 3: Apply Graph-Based Dual Attention Mechanism (GDAM)
+---
 
-# Dynamic Graph Attention (DGA) to refine graph node embeddings
-V_prime = SPG_embeddings
-V_double_prime = DGA(V_prime, visual_features, SPG.adjacency_matrix)
+### **5. Report Generation via Hybrid Transformer**
+- **Design**: Multi-layer Transformer encoder-decoder conditioned on fused clinical and visual embeddings.
+- **Function**: Generates coherent, interpretable radiology reports aligned with disease evolution.
+- **Implementation**: `modules/transformer.py`
 
-# Key Event Attention (KEA) to focus on critical findings over time
-attention_output = KEA(visual_features, V_double_prime)
 
-# Fuse graph and visual information
-G_fused = FullyConnectedLayer(attention_output)
-
-# Step 4: Positional Encoding with HTPE
-G_encoded = HTPE(G_fused, sequence_length=L)
-
-# Step 5: Report Generation using Transformer Decoder
-Q, K, V = LinearProjection(G_encoded)
-encoder_output = TransformerEncoder(Q, K, V)
-
-# Decode the report sequence token by token
-Y = TransformerDecoder(encoder_output)
-
-# Step 6: Training Objective
-# Maximize conditional probability of generating report Y given input images and SPG
-loss = CrossEntropy(Y_pred, Y_true)
-optimize(loss)
-
-# Final Output: Generated Report Y
-return Y
-```
 
  ##  Dataset
 
