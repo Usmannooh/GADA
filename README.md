@@ -62,14 +62,14 @@ pip install -r requirements.txt
   - **CADA (Context-Aware Dynamic Alignment)**: Aligns symptom-visual representations based on semantic cues.
   - **TSA (Temporal Saliency Attention)**: Highlights key clinical events across temporal visit sequences.
 - **Purpose**: Models evolving clinical semantics and spatial-temporal alignment.
-- **Implementation**: `modules/attention.py`, `modules/graph.py`
+- **Implementation**: `models/model.py`, `modules/gdam.py`
 
 
 
 ### **4. Context-Guided Temporal Positional Encoding (CTPE)**
 - **Design**: Combines sinusoidal encodings with visit-aware temporal masking (`pt`) and report-aware contextual cues (`rt`).
 - **Function**: Injects chronological coherence into Transformer input representations.
-- **Implementation**: `modules/position.py`
+- **Implementation**: `mmodels/model.py`
 
 
 
